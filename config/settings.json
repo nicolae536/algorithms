@@ -1,0 +1,19 @@
+{
+    "macros": {
+        "evaluateCode": [
+            "workbench.output.action.clearOutput",
+            "code-runner.run"
+        ]
+    },
+    "sync.gist": "1732d50b717894ee122e3eb1b0b73adc",
+    "sync.lastUpload": "2018-02-28T20:51:34.115Z",
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.lastDownload": "",
+    "sync.forceDownload": false,
+    "sync.anonymousGist": false,
+    "sync.host": "",
+    "sync.pathPrefix": "",
+    "sync.quietSync": false,
+    "sync.askGistName": false
+}

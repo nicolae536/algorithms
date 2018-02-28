@@ -1,0 +1,29 @@
+{
+	"main_js": {
+		"prefix": "main-js",
+		"body": [
+			"const main = () => {",
+			"\t$0",
+			"};",
+			"",
+			"main();"
+		],
+		"description": "Main js init"
+	},
+	"problem_js": {
+		"prefix": "problem-js",
+		"body": [
+			"const initData = (context) => {",
+			"\t$1",
+			"};",
+			"",
+			"const main = () => {",
+			"\tinitData(this);",
+			"\t$0",
+			"};",
+			"",
+			"main();"
+		],
+		"description": "Main js init"
+	}
+}
