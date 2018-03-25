@@ -1,347 +1,222 @@
-<!-- <script>
-    const initData = (context) => {
-    context.number = 0b1101110111110;
-};
-
-const main = () => {
-    initData(this);
-    let j = '' + (this.number).toString(2),
-        sec1 = 0,
-        sec1LastIdx = 0,
-        sec1StIdx = 0,
-        sec2 = 0,
-        sec2LastIdx = 0,
-        sec2StIdx = 0,
-        secC = 0;
-    for (let i = 0; i < j.length; i++) {
-        let c = j[i];
-        if (c === '1') {
-            secC += 1;
-        }
-
-        if (c === '0' || (i === j.length - 1)) {
-            // We need in case we are on the last number we need to use the array length to compute data
-            let indexToUse = c !== '0' && i === j.length - 1 ? i : i - 1;
-            if (sec1 === 0) {
-                sec1 = secC;
-                sec1StIdx = indexToUse - secC;
-                sec1LastIdx = indexToUse;
-            } else if (sec2 === 0) {
-                if (indexToUse - secC !== sec1LastIdx + 1) {
-                    sec1 = secC;
-                    sec1StIdx = indexToUse - secC;
-                    sec1LastIdx = indexToUse;
-                } else {
-                    sec2 = secC;
-                    sec2StIdx = indexToUse - secC;
-                    sec2LastIdx = indexToUse;
-                }
-            } else if (secC + sec2 > sec1 + sec2 && (indexToUse - secC === sec2LastIdx + 1)) {
-                sec1 = sec2;
-                sec1StIdx = sec2StIdx;
-                sec1LastIdx = sec2LastIdx;
-                sec2 = secC;
-                sec2StIdx = indexToUse - secC + 1;
-                sec2LastIdx = indexToUse;
-            }
-
-            secC = 0;
-        }
-    }
-
-    console.log('I can change a bit to one and a max of 1 array length ', sec1 + sec2 + 1);
-};
-
-main();
-</script> -->
-
 <script>
     let test_in = `30 10 10 24 1 1 6 2 10 2 14 3 23 3 24 4 32 5 33 6 34 7 37 6 42 8 47 7 49 4 59 9 63 1 66 10 70 5 71 11 72 9 82 12 87 8 89 10 92 11 95 12 0 10 10 16 8 1 12 2 15 3 16 4 19 5 24 6 25 7 42 2 43 3 48 7 56 5 76 6 83 8 89 4 91 8 99 1 0 10 10 16 7 1 15 2 17 3 19 3 27 4 28 1 34 5 38 6 46 7 51 8 56 4 57 5 58 8 61 2 71 6 72 7 0 10 10 18 1 1 5 2 10 3 21 4 22 5 24 6 27 7 33 4 34 8 35 9 67 7 72 8 73 9 82 6 85 1 86 5 97 2 98 3 0 10 10 20 9 1 10 2 11 3 12 4 16 5 19 6 28 2 32 7 34 1 37 8 44 9 59 6 65 9 67 3 69 5 78 4 79 10 86 7 98 10 99 8 0 10 10 22 12 1 16 1 19 2 20 3 24 4 25 2 30 5 32 6 33 3 39 7 40 8 42 9 43 5 54 4 57 8 71 6 81 10 82 11 87 11 88 7 89 9 97 10 0 10 10 22 6 1 22 2 23 3 27 4 46 3 47 5 49 5 50 1 60 6 63 7 64 8 65 9 67 9 70 10 77 8 78 6 79 11 82 4 97 2 98 7 99 11 100 10 0 10 10 18 1 1 29 2 33 3 37 3 38 4 39 1 43 5 50 6 51 2 61 7 67 5 68 8 74 9 75 8 82 4 89 9 94 7 95 6 0 10 10 18 6 1 7 2 8 3 12 4 13 5 24 4 25 6 33 1 34 7 52 8 54 9 55 8 56 7 72 9 73 6 81 2 82 5 99 3 0 10 10 20 5 1 6 2 12 3 15 4 16 1 28 4 31 5 41 6 42 3 53 6 61 7 62 8 74 9 76 10 78 10 88 9 91 7 96 8 97 5 100 2 0 10 10 22 4 1 14 2 23 3 28 4 38 5 46 6 47 4 48 3 58 7 60 7 64 6 66 8 69 9 70 10 74 5 77 11 78 9 84 2 88 8 89 10 90 11 94 1 0 10 10 18 12 1 18 2 20 3 23 4 24 5 26 6 28 1 48 7 52 4 53 5 54 6 69 8 73 7 84 9 86 3 87 9 96 8 99 2 0 10 10 18 12 1 16 2 17 3 18 4 19 5 24 6 36 7 41 8 46 9 48 4 66 9 67 6 72 2 73 1 75 3 78 7 87 5 91 8 0 10 10 22 14 1 15 2 19 3 22 1 23 4 24 5 27 6 32 4 36 7 43 7 46 6 62 8 65 9 68 2 69 3 82 10 85 8 93 9 94 10 95 11 99 11 100 5 0 10 10 18 1 1 10 1 11 2 12 3 32 4 46 2 47 5 49 4 55 6 59 7 75 5 78 6 79 8 80 9 82 7 85 3 99 8 100 9 0 10 10 20 7 1 8 2 16 3 17 4 23 4 24 5 28 5 49 6 51 1 52 7 58 2 61 6 71 8 77 9 82 10 85 7 88 3 89 9 91 10 92 8 0 10 10 16 14 1 16 2 19 3 24 4 34 5 35 6 39 7 49 2 58 1 59 8 65 4 66 5 67 6 73 3 81 7 82 8 0 10 10 22 12 1 16 2 17 3 26 4 27 5 33 2 35 6 37 7 39 3 45 4 52 5 54 8 62 9 66 7 69 8 75 6 76 10 81 9 83 11 91 1 98 11 99 10 0 10 10 16 8 1 10 2 12 3 13 4 16 3 20 5 26 6 27 5 29 2 39 7 45 6 48 8 58 1 64 4 67 8 82 7 0 10 10 20 4 1 5 2 7 3 11 1 12 4 13 2 19 5 23 6 34 3 39 7 42 6 44 4 45 8 57 9 61 9 69 10 72 5 76 7 84 10 91 8 0 10 10 22 1 1 8 2 10 3 11 4 14 5 24 6 28 7 29 2 36 6 43 8 45 9 50 3 56 7 57 10 60 5 70 9 78 10 79 11 84 4 85 1 89 8 91 11 0 10 10 22 1 1 2 2 5 3 6 4 12 5 16 6 17 5 26 7 28 7 35 6 36 8 54 2 55 9 60 4 63 10 67 3 73 9 75 10 77 8 79 11 87 11 92 1 0 10 10 22 6 1 11 2 17 2 18 3 23 4 26 5 27 1 29 3 32 6 34 4 35 7 37 8 44 9 45 6 48 10 50 10 51 7 65 11 72 9 78 11 85 5 91 8 0 10 10 22 1 1 13 2 18 3 19 4 20 3 21 1 22 5 30 4 34 6 37 7 49 7 54 8 56 2 64 9 68 10 73 8 74 11 77 10 86 6 87 11 97 9 98 5 0 10 10 22 6 1 7 2 8 3 10 3 11 1 12 2 20 4 29 5 35 6 44 7 48 8 49 9 54 10 56 8 58 6 68 9 74 10 78 11 84 7 85 11 91 4 97 5 0 10 10 20 1 1 11 2 22 1 29 3 34 3 36 4 37 5 39 6 48 7 49 2 52 8 53 9 54 4 59 7 60 8 67 5 68 10 73 10 78 9 93 6 0 10 10 22 5 1 14 2 15 3 19 4 28 3 34 5 40 6 47 6 55 7 56 4 57 8 59 9 65 10 67 9 77 10 78 11 82 2 87 5 88 7 89 11 93 1 99 8 0 10 10 18 4 1 5 2 12 3 28 4 36 5 37 6 42 7 44 8 45 6 54 3 63 9 64 5 74 4 80 8 82 7 83 9 84 1 88 2 0 10 10 18 2 1 3 2 12 3 19 4 24 5 26 6 29 7 34 4 36 8 39 6 42 3 52 1 55 5 61 9 66 8 73 7 92 9 100 2 0 10 10 18 1 1 7 2 9 3 11 4 12 5 31 6 35 7 38 1 42 3 52 2 53 6 55 4 68 5 78 7 83 8 84 9 91 8 92 9 0`;
 
 
 
-    // DONE
-    function buildBord(val) {
-        let allValue = [val];//.split(' 0 ');
+    class FlowBoard {
+        // testsNumber;
+        // table;
+        // map points by color
+        // {start: {x, y}, end:{x,y}, color}
+        // pointsDefs;
 
-        if (allValue.length === 0) {
-            return [];
-        }
+        constructor(boardPointsIn) {
+            let pointsSplitted = boardPointsIn.split(' ');
 
-        let resp = {
-            testsNumber: allValue[0].substring(0, 2),
-            tablesCollection: [],
-            pointsCollections: []
-        }
-
-        allValue[0] = allValue[0].substring(3, allValue[0].length);
-
-        for (let tab of allValue) {
-            let subSp = tab.split(' ');
-
-            if (subSp.length < 3) {
-                continue;
+            if (pointsSplitted.length < 6) {
+                throw new Error("Invalid board definition");
             }
 
-            let table = [];
-            let pointsIndex = 3;
-            let pointValue = 1;
-            for (let i = 0; i < +subSp[0]; i++) {
-                table[i] = []
-                for (let j = 0; j < +subSp[1]; j++) {
-                    table[i][j] = '*';
+            this.initBoard(pointsSplitted[0], pointsSplitted[1]);
+            this.addPointsToBoard(pointsSplitted);
+            this.solveBoard1(this.pointsDefs, this.getInitSolution());
+        }
+
+        initBoard(lines, columns) {
+            this.table = [];
+            // indexes 0,1 are board width and columns
+            for (let i = 0; i < +lines; i++) {
+                this.table[i] = []
+                for (let j = 0; j < +columns; j++) {
+                    this.table[i][j] = '*';
                 }
             }
+        }
 
-            let points = {}
-            for (let i = 3; i < ((+subSp[2] * 2) + 3); i += 2) {
-                let c = +subSp[i];
-
-                let line = Math.floor(c / table.length)
-
-                let column = c - (line * table.length);
+        addPointsToBoard(pointsSplitted) {
+            this.stPoint = null;
+            // from index 3 starts the points definition
+            this.pointsDefs = {};
+            for (let i = 3; i < ((+pointsSplitted[2] * 2) + 3); i += 2) {
+                let currentPoint = +pointsSplitted[i];
+                let color = +pointsSplitted[i + 1];
+                let line = Math.floor(currentPoint / this.table.length)
+                let column = currentPoint - (line * this.table.length);
 
                 if (column > 0) {
                     column -= 1;
                 }
-                // console.log(line, column);
 
-                if (!points[+subSp[i + 1]]) {
-                    points[+subSp[i + 1]] = { start: { x: line, y: column }, color: +subSp[i + 1] };
+                if (!this.pointsDefs[color]) {
+                    this.pointsDefs[color] = { start: { x: line, y: column }, color: color };
                 } else {
-                    points[+subSp[i + 1]].end = { x: line, y: column };
+                    this.pointsDefs[color].end = { x: line, y: column };
+                }
+
+                if (!this.stPoint) {
+                    this.stPoint = this.pointsDefs[color];
                 }
 
 
-                table[line][column] = +subSp[i + 1];
+                this.table[line][column] = color;
             }
-
-            resp.tablesCollection.push(table);
-            resp.pointsCollections.push(points);
         }
 
+        // DONE
+        logBord(table) {
+            if (!table) {
+                table = this.table;
+            }
 
-        return resp;
-    }
-    // DONE
-    function logBord(bord) {
-        for (let o of bord) {
-            console.log(o.join(' '));
-        }
-    }
-
-    // find one line
-    function findLine(table, start, end, tail, removedDirections) {
-        if (
-            (start.x + 1 < table.length && (start.x + 1) === end.x && start.y === end.y) ||
-            (start.x - 1 < 0 && (start.x - 1) === end.x && start.y === end.y) ||
-            (start.y + 1 < table[start.x].length && start.x === end.x && (start.y + 1) === end.y) ||
-            (start.y - 1 > 0 && start.x === end.x && (start.y - 1) === end.y)
-        ) {
-            return { done: true };
+            for (let o of table) {
+                console.log(o.join(' '));
+            }
         }
 
-        if (!moveOnePoint(table, start, end, tail, removedDirections)) {
-            let last = tail.pop();
-
-            if (removedDirections[start.x + '_' + start.y]) {
-                removedDirections[start.x + '_' + start.y] = [];
+        getInitSolution() {
+            let arr = [];
+            for (let k in this.table) {
+                arr[k] = [];
+                for (let j in this.table[k]) {
+                    arr[k][j] = this.table[k][j];
+                }
             }
 
-            if (last === 'S') {
-                start.x -= 1;
-            }
-
-            if (last === 'N') {
-                start.x += 1;
-            }
-
-            if (last === 'E') {
-                start.y -= 1;
-            }
-
-            if (last === 'W') {
-                start.x += 1;
-            }
-
-            if (!removedDirections[start.x + '_' + start.y]) {
-                removedDirections[start.x + '_' + start.y] = [];
-            }
-
-            removedDirections[start.x + '_' + start.y].push(last)
-            return findLine(table, start, end, tail, removedDirections);
-        } else {
-            if (removedDirections[start.x + '_' + start.y] &&
-                removedDirections[start.x + '_' + start.y].length === 4) {
-                logBord(table);
-                return { done: false, lastPointChecked: start };
-            }
-
-            logBord(table);
-            return findLine(table, start, end, tail, removedDirections);
+            return arr;
         }
-    }
 
-    // move one point further if possible
-    function moveOnePoint(table, start, end, tail, removedDirections) {
-        let removedDir = removedDirections[start.x + '_' + start.y];
+        solveBoard() {
+            // iterate over not connected points
+            // take one point
+            // try to move to next available position
+            // check if the move is safe => other points should be still connectable after we check this
+            // move
+            // if the solution is not valid backtract
+        }
 
-        let n = (removedDir && removedDir.indexOf('N') !== -1) || (start.x - 1 < 0)
-            ? null
-            : table[start.x - 1][start.y];
-        let s = (removedDir && removedDir.indexOf('S') !== -1) || (start.x + 1 >= table.length)
-            ? null
-            : table[start.x + 1][start.y];
-        let e = (removedDir && removedDir.indexOf('E') !== -1) || (start.y + 1 >= table[start.x].length)
-            ? null
-            : table[start.x][start.y + 1];
-        let w = (removedDir && removedDir.indexOf('W') !== -1) || (start.y - 1 < 0)
-            ? null
-            : table[start.x][start.y - 1];
+        solveBoard1(flowPoints, solution) {
+            // if (this.areAllPointsConnected(solution)) {
+            //     return true;
+            // }
+            let p = this.stPoint;
+            this.drawFlowLine(p.start.x, p.start.y, p, solution);
+            // this.logBord(solution);
+        }
 
-        // x => line
-        // y => column
-        let color = table[start.x][start.y];
-        if (start.x < end.x && s == '*') {
-            tail.push('S');
-            start.x += 1;
-            table[start.x][start.y] = color;
+        cloneSolution(solution) {
+            let s1 = [];
+
+            solution.forEach((v, k) => {
+                s1[k] = [];
+                v.forEach((v1, i) => {
+                    s1[k][i] = solution[k][i];
+                })
+            })
+
+            return s1;
+        }
+
+        drawFlowLine(currentFlowX, currentFlowY, point, solution) {
+            if (point &&
+                !this.areNeighboars(solution, { x: currentFlowX, y: currentFlowY }, point.end) &&
+                (
+                    this.isPointIsolated(solution, { x: currentFlowX, y: currentFlowY }) ||
+                    this.isPointIsolated(solution, point.end)
+                )
+            ) {
+                return false;
+            }
+
+            // todo return false if end or point is isolated
+            if (point &&
+                this.areNeighboars(solution, { x: currentFlowX, y: currentFlowY }, point.end)) {
+                let next_p = this.pointsDefs[point.color + 1];
+
+                if (!next_p) {
+                    this.logBord(solution);
+                    return true;
+                }
+
+                return this.drawFlowLine(next_p.start.x, next_p.start.y, next_p, solution);
+            }
+
+            let xMoves = [-1, 1, 0, 0];
+            let yMoves = [0, 0, -1, 1];
+            // let nextPoing = get
+            for (let moveIndex = 0; moveIndex < 4; moveIndex++) {
+                let next_x = xMoves[moveIndex] + currentFlowX;
+                let next_y = yMoves[moveIndex] + currentFlowY;
+
+                if (this.isMoveSafe(solution, next_x, next_y)) {
+                    let s1 = solution; //this.cloneSolution(solution);
+                    s1[next_x][next_y] = point.color;
+
+                    if (this.drawFlowLine(next_x, next_y, point, s1)) {
+                        return true;
+                    } else {
+                        s1[next_x][next_y] = '*'
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        isMoveSafe(solution, next_x, next_y) {
+            if (!solution[next_x] || solution[next_x][next_y] !== '*') {
+                return false;
+            }
+
             return true;
         }
 
-        if (start.x > end.x && n == '*') {
-            tail.push('N');
-            start.x -= 1;
-            table[start.x][start.y] = color;
-            return true;
-        }
-
-        if (start.y < end.y && e == '*') {
-            tail.push('E');
-            start.y += 1;
-            table[start.x][start.y] = color;
-            return true;
-        }
-
-        if (start.y > end.y && w == '*') {
-            tail.push('W');
-            start.y -= 1;
-            table[start.x][start.y] = color;
-            return true;
-        }
-
-        if (n === '*') {
-            tail.push('N');
-            start.x -= 1;
-            table[start.x][start.y] = color;
-            return true;
-        }
-
-        if (s === '*') {
-            tail.push('S');
-            start.x += 1;
-            table[start.x][start.y] = color;
-            return true;
-        }
-
-        if (e === '*') {
-            tail.push('E');
-            start.y += 1;
-            table[start.x][start.y] = color;
-            return true;
-        }
-
-        if (w === '*') {
-            tail.push('W');
-            start.y -= 1;
-            table[start.x][start.y] = color;
-            return true;
-        }
-
-        return false;
-    }
-
-    console.log((test_in.split(' 0 ')[0]));
-    let resp = buildBord((test_in.split(' 0 ')[0]));
-    logBord(resp.tablesCollection[0]);
-
-    let allTailsFound = {};
-    let tailsInvalid = {};
-
-    findAllPaths(resp.tablesCollection[0], resp.pointsCollections[0], allTailsFound, tailsInvalid);
-
-    function findAllPaths(table, points, allTailsFound, tailsInvalid) {
-        if (Object.keys(allTailsFound).length === Object.keys(points).length) {
-            return allTailsFound;
-        }
-
-
-        let nextPoint = getFirstPoint(points, allTailsFound);
-        let start = { ...nextPoint.start };
-        let tail = [];
-        let lineCreated = findLine(table, start, nextPoint.end, tail, {});
-
-        if (!allTailsFound[nextPoint.color]) {
-            allTailsFound[nextPoint.color] = {}
-        }
-
-        if (lineCreated.done && !(tailsInvalid[nextPoint.color] && tailsInvalid[nextPoint.color].indexOf(tail.join('')) !== -1)) {
-            allTailsFound[nextPoint.color].tail = tail.join('');
-            allTailsFound[nextPoint.color].color = nextPoint.color;
-            return findAllPaths(table, points, allTailsFound, tailsInvalid);
-        } else {
-            let p = lineCreated.lastPointChecked;
-
-            let blockPoint = {};
-            if (table[p.x - 1][p.y] !== '*' && allTailsFound[(p.x - 1) + '_' + p.y]) {
-                blockPoint.x = p.x - 1;
-                blockPoint.y = p.y;
-            } else if (table[p.x + 1][p.y] !== '*' && allTailsFound[(p.x + 1) + '_' + p.y]) {
-                blockPoint.x = p.x + 1;
-                blockPoint.y = p.y;
-            } else if (table[p.x][p.y - 1] !== '*' && allTailsFound[p.x + '_' + (p.y - 1)]) {
-                blockPoint.x = p.x;
-                blockPoint.y = p.y - 1;
-            } else if (table[p.x][p.y + 1] !== '*' && allTailsFound[p.x + '_' + (p.y + 1)]) {
-                blockPoint.x = p.x;
-                blockPoint.y = p.y + 1;
+        isPointIsolated(solution, point) {
+            if (
+                (solution[point.x - 1] && solution[point.x - 1][point.y] === '*') ||
+                (solution[point.x + 1] && solution[point.x + 1][point.y] === '*') ||
+                (solution[point.x] && solution[point.x][point.y - 1] === '*') ||
+                (solution[point.x] && solution[point.x][point.y + 1] === '*')
+            ) {
+                return false;
             }
 
-            let indexTail = getPoint(points, {}).color
+            return true;
+        }
 
-            if (!tailsInvalid[indexTail]) {
-                tailsInvalid[indexTail] = [];
-            }
-
-            tailsInvalid[indexTail].push(allTailsFound[indexTail].tail);
-            delete allTailsFound[indexTail];
-            return findAllPaths(table, points, allTailsFound, tailsInvalid);
+        areNeighboars(solution, point, neighboar) {
+            return (
+                (point.x + 1 < solution.length && (point.x + 1) === neighboar.x && point.y === neighboar.y) ||
+                (point.x - 1 < 0 && (point.x - 1) === neighboar.x && point.y === neighboar.y) ||
+                (point.y + 1 < solution[point.x].length && point.x === neighboar.x && (point.y + 1) === neighboar.y) ||
+                (point.y - 1 > 0 && point.x === neighboar.x && (point.y - 1) === neighboar.y)
+            );
         }
     }
 
-    function getFirstPoint(points, allTailsFound) {
-        for (let key in points) {
-            let p = points[key];
+    class FlowBoardsCollection {
+        // flowBoards = [];
+        // testsNumber = 0;
+        constructor(file_in) {
+            this.flowBoards = [];
+            let allBoards = file_in.split(' 0 ');
+            allBoards = [allBoards[0]];
 
-            if (!allTailsFound[p.color]) {
-                return p;
+            if (allBoards.length === 0) {
+                return;
             }
-        }
 
-        return null;
+            this.testsNumber = allBoards[0].substring(0, 2);
+
+            allBoards[0] = allBoards[0].substring(3, allBoards[0].length);
+
+            for (let board of allBoards) {
+                this.flowBoards.push(new FlowBoard(board));
+            }
+
+            this.flowBoards[0].logBord();
+        }
     }
 
-    function getPoint(points, startPoint) {
-        for (let key in points) {
-            let p = points[key];
+    new FlowBoardsCollection(test_in);
 
-            if (startPoint.x === p.start.x && startPoint.y === p.start.y) {
-                return p;
-            }
-        }
-
-        return null;
-    }
-
-// function findPath(table, color)
 </script>
